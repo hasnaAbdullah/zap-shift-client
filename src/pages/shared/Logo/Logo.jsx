@@ -1,0 +1,17 @@
+import logoImg from "../../../assets/logo.png";
+
+function Logo() {
+  return (
+    <div className="flex items-end">
+      <img
+        className="w-7 md:w-9 mb-1.5 md:mb-2"
+        src={logoImg}
+        alt="Profast logo"
+      />
+      <h3 className="-ml-3 md:-ml-3.5 text-xl md:text-3xl font-extrabold text-gray-900">
+        Profast
+      </h3>
+    </div>
+  );
+}
+export default Logo;
