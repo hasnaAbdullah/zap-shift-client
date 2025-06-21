@@ -7,6 +7,7 @@ import {
   FaUndoAlt,
 } from "react-icons/fa";
 import ServiceCard from "./ServiceCard";
+import SectionHeader from "../../shared/SectionHeader/SectionHeader";
 
 const serviceData = [
   {
@@ -51,16 +52,13 @@ function Services() {
   return (
     <section className=" my-16 px-2 md:px-4  ">
       <div className=" lg:px-40 py-30 bg-teal-950 rounded-2xl px-2 md:px-4 ">
-        <div className="text-center mb-10 ">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-slate-100">
-            Our Services
-          </h2>
-          <p className=" text-gray-400 max-w-[720px] mx-auto">
-            Enjoy fast, reliable parcel delivery with real-time tracking and
+        <SectionHeader
+          title="Our Services"
+          desc="Enjoy fast, reliable parcel delivery with real-time tracking and
             zero hassle. From personal packages to business shipments — we
-            deliver on time, every time.
-          </p>
-        </div>
+            deliver on time, every time."
+        />
+
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
           {serviceData.map((service, index) => (
             <ServiceCard

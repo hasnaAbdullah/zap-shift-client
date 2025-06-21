@@ -26,7 +26,7 @@ const features = [
 function FeaturesSection() {
   return (
     <section className="py-16 px-4 bg-gray-100">
-      <div className="max-w-6xl mx-auto space-y-8">
+      <div className="max-w-7xl mx-auto space-y-8">
         {features.map((feature, index) => (
           <FeatureCard
             key={index}
