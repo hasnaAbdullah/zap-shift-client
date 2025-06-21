@@ -1,3 +1,4 @@
+import Footer from "../../shared/Footer/Footer";
 import Banner from "../Banner/Banner";
 import FAQS from "../FAQS/FAQS";
 import FeaturesSection from "../Features/FeaturesSection";
@@ -19,6 +20,7 @@ function Home() {
       </div>
 
       <FAQS />
+      <Footer />
     </div>
   );
 }

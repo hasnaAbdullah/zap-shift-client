@@ -1,6 +1,6 @@
 import logoImg from "../../../assets/logo.png";
 
-function Logo() {
+function Logo({ footer }) {
   return (
     <div className="flex items-end">
       <img
@@ -8,7 +8,11 @@ function Logo() {
         src={logoImg}
         alt="Profast logo"
       />
-      <h3 className="-ml-3 md:-ml-3.5 text-xl md:text-3xl font-extrabold text-gray-900">
+      <h3
+        className={`-ml-3 md:-ml-3.5 text-xl md:text-3xl font-extrabold ${
+          footer !== "footer" ? "text-gray-900" : "text-slate-100"
+        }  `}
+      >
         Profast
       </h3>
     </div>
