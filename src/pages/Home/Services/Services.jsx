@@ -7,7 +7,7 @@ import {
   FaUndoAlt,
 } from "react-icons/fa";
 import ServiceCard from "./ServiceCard";
-import SectionHeader from "../../shared/SectionHeader/SectionHeader";
+import { SectionHeader } from "../../shared/SectionHeader/SectionHeader";
 
 const serviceData = [
   {

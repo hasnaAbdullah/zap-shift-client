@@ -1,4 +1,5 @@
 import Banner from "../Banner/Banner";
+import FAQS from "../FAQS/FAQS";
 import FeaturesSection from "../Features/FeaturesSection";
 import HowWorks from "../HowWorks/HowWorks";
 import SatisficationSection from "../Satisfication/SatisficationSection";
@@ -16,6 +17,8 @@ function Home() {
       <div className="px-2 sm:px-6 ">
         <SatisficationSection />
       </div>
+
+      <FAQS />
     </div>
   );
 }
