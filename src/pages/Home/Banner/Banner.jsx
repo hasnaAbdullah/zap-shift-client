@@ -6,15 +6,14 @@ import banner3 from "../../../assets/banner/banner3.png";
 
 function Banner() {
   return (
-    <div className="my-16 h-[40vh]">
+    <div className="my-16 ">
       <Carousel
         autoPlay={true}
         infiniteLoop={true}
-        emulateTouch={true}
         showThumbs={false}
         showArrows={false}
         swipeScrollTolerance={100}
-        transitionTime={1000}
+        transitionTime={1500}
         interval={2000}
       >
         <div>
