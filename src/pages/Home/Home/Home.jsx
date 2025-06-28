@@ -6,6 +6,7 @@ import HowWorks from "../HowWorks/HowWorks";
 import SatisficationSection from "../Satisfication/SatisficationSection";
 import Services from "../Services/Services";
 import SponsorsSection from "../Sponsors/Sponsors";
+import Timeline from "../TimeLineContent/Timeline.";
 
 function Home() {
   return (
@@ -18,7 +19,7 @@ function Home() {
       <div className="px-2 sm:px-6 ">
         <SatisficationSection />
       </div>
-
+      <Timeline />
       <FAQS />
       <Footer />
     </div>

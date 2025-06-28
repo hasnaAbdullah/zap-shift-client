@@ -6,7 +6,7 @@ import banner3 from "../../../assets/banner/banner3.png";
 
 function Banner() {
   return (
-    <div className="my-16 ">
+    <div className="my-16">
       <Carousel
         autoPlay={true}
         infiniteLoop={true}

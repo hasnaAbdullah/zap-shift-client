@@ -1,7 +1,9 @@
 import { NavLink } from "react-router";
 import Logo from "../Logo/Logo";
+import { useEffect, useState } from "react";
 
 function Navbar() {
+  const [isShowMenu, setIsShowMenu] = useState(false);
   const links = (
     <>
       <li className="font-semibold text-[15px] text-black/60">
@@ -30,6 +32,20 @@ function Navbar() {
       </li>
     </>
   );
+
+  useEffect(() => {
+    window.onclick = (event) => {
+      if (!event.target.matches(".menu-btn")) {
+        setIsShowMenu(false);
+      }
+    };
+
+    if (document.getElementsByClassName("modal_menu")[0]) {
+      document.getElementsByClassName("modal_menu")[0].onclick = (event) =>
+        event.stopPropagation();
+    }
+  }, [isShowMenu]);
+
   return (
     <div className=" bg-white shadow-sm">
       <div className="max-w-[1450px] mx-auto navbar p-0 bg-base-100">
@@ -66,12 +82,25 @@ function Navbar() {
           </div>
           <Logo />
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-center hidden lg:flex relative">
           <ul className="middle-links flex gap-5 px-1">{links}</ul>
+          <button
+            onClick={() => setIsShowMenu(!isShowMenu)}
+            className="btn menu-btn"
+          >
+            menu
+          </button>
+          {isShowMenu && (
+            <ul className="modal_menu absolute right-0 shadow-md space-y-2 top-14 w-54 z-50 bg-slate-200 p-6 rounded-xl">
+              {links}
+            </ul>
+          )}
         </div>
         <div className="navbar-end">
-          <a className="btn">Sign In</a>
-          <a className="btn">Be a Rider</a>
+          <NavLink to="/login" className="btn">
+            Sign In
+          </NavLink>
+          <NavLink className="btn">Be a Rider</NavLink>
         </div>
       </div>
     </div>

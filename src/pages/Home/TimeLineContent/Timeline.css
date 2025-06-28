@@ -1,0 +1,50 @@
+.timeline {
+  position: relative;
+  border-left: 2px solid #3b82f6;
+  margin-left: 2rem;
+  padding-left: 2rem;
+}
+
+.timeline-step {
+  position: relative;
+  margin-bottom: 4rem;
+  min-height: 200px;
+  color: white;
+}
+
+.timeline-step::before {
+  content: attr(data-step);
+  position: absolute;
+  left: -2.5rem;
+  top: 0;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+  transition: all 0.3s ease;
+}
+
+.timeline-step.active::before {
+  background: #3b82f6;
+  color: white;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #38bdf8;
+  border-radius: 999px;
+  font-size: 14px;
+  color: #38bdf8;
+}

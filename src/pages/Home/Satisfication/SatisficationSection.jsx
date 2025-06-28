@@ -1,11 +1,11 @@
-import beMarchant from "../../../assets/be-a-merchant-bg.png";
+// import beMarchant from "../../../assets/be-a-merchant-bg.png";
 import location from "../../../assets/location-merchant.png";
 
 function SatisficationSection() {
   return (
     <section
-      className="bg-teal-950 py-16 px-6  bg-no-repeat xl:p-20  rounded-2xl max-w-7xl mx-auto "
-      style={{ backgroundImage: `url(${beMarchant})` }}
+      className="bg-teal-950 bg-[url('assets/be-a-merchant-bg.png')] py-16 px-6  bg-no-repeat xl:p-20  rounded-2xl max-w-7xl mx-auto "
+      // style={{ backgroundImage: `url(${beMarchant})` }}
     >
       <div
         className={` flex flex-col-reverse lg:flex-row items-center gap-10  `}
