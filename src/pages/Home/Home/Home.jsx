@@ -19,9 +19,9 @@ function Home() {
       <div className="px-2 sm:px-6 ">
         <SatisficationSection />
       </div>
-      <Timeline />
+
       <FAQS />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

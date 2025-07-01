@@ -1,8 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import GoogleIcon from "../../shared/icons/GoogleIcon";
+import useAuth from "../../../hooks/useAuth";
 
 function Account() {
+  const { setUser, createUser } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,6 +14,15 @@ function Account() {
   const onSubmit = (data) => {
     console.log(data);
     // console.log(errors);
+    createUser(data?.email, data?.password)
+      .then((res) => {
+        console.log(res.user);
+        setUser(res.user);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div>

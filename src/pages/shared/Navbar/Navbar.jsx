@@ -1,8 +1,10 @@
 import { NavLink } from "react-router";
 import Logo from "../Logo/Logo";
 import { useEffect, useState } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 function Navbar() {
+  const { user, logoutUser } = useAuth();
   const [isShowMenu, setIsShowMenu] = useState(false);
   const links = (
     <>
@@ -22,16 +24,23 @@ function Navbar() {
         {" "}
         <NavLink to="/about">About Us</NavLink>
       </li>
-      <li className="font-semibold text-[15px] text-black/60">
-        {" "}
-        <NavLink to="/pricing">Pricing</NavLink>
-      </li>
+      {user && (
+        <li className="font-semibold text-[15px] text-black/60">
+          {" "}
+          <NavLink to="/send-parcel">Send Parcel</NavLink>
+        </li>
+      )}
+
       <li className="font-semibold text-[15px] text-black/60">
         {" "}
         <NavLink to="/be-rider">Be a Rider</NavLink>
       </li>
     </>
   );
+
+  const handleLogout = () => {
+    logoutUser();
+  };
 
   useEffect(() => {
     window.onclick = (event) => {
@@ -97,10 +106,20 @@ function Navbar() {
           )}
         </div>
         <div className="navbar-end">
-          <NavLink to="/login" className="btn">
-            Sign In
-          </NavLink>
-          <NavLink className="btn">Be a Rider</NavLink>
+          {user ? (
+            <button onClick={handleLogout} className="btn bg-primaryColor">
+              Sign Out
+            </button>
+          ) : (
+            <div className="space-x-2">
+              <NavLink to="/login" className="btn border-primaryColor">
+                Sign In
+              </NavLink>
+              <NavLink to="/account" className="btn bg-primaryColor">
+                Sign Up
+              </NavLink>
+            </div>
+          )}
         </div>
       </div>
     </div>
