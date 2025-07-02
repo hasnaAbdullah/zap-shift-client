@@ -7,6 +7,7 @@ import FormInput from "./FormInput";
 import FormSelect from "./FormSelect";
 import FormTextarea from "./FormTextarea.jsx";
 import totalCostCalculator from "../utils/totalCostCalculator.js";
+import useAxiosSecure from "../../hooks/useAxiosSecure.jsx";
 
 const SendParcel = () => {
   const {
@@ -18,6 +19,7 @@ const SendParcel = () => {
 
   const districtData = useLoaderData();
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   const getUniqueRegions = () => {
     const regions = districtData.map((d) => d.region);
@@ -49,6 +51,7 @@ const SendParcel = () => {
 
     const { baseCost, extraCost, costNote, zone, total, wt } =
       totalCostCalculator(weight, isWithinCity, parcelType);
+
     const breakdownHtml = `
       <div style="text-align: left; font-size: 16px;">
         <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Delivery Cost Breakdown</h3>
@@ -103,8 +106,17 @@ const SendParcel = () => {
           trackingId,
         };
 
-        console.log("✅ Final Data to send to DB:", finalData);
-        Swal.fire("Submitted!", "Your parcel has been confirmed.", "success");
+        axiosSecure.post("/parcels", finalData).then((res) => {
+          if (res?.data?.insertedId) {
+            Swal.fire(
+              "Submitted!",
+              "Your parcel has been confirmed.",
+              "success"
+            );
+            console.log("✅ Final Data to send to DB:", finalData);
+          }
+          console.log(res);
+        });
         // submit finalData to database here
       }
     });
