@@ -9,6 +9,13 @@ import Coverage from "../pages/Coverage/Coverage";
 import PrivateRoute from "../routes/PrivateRoute";
 import SendParcel from "../pages/SendParcel/SendParcel";
 import DashboardLayout from "../layouts/DashboardLayout";
+import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import TrackParcel from "../pages/Dashboard/TrackParcel/TrackParcel";
+import BeARider from "../pages/BeARider/BeARider";
+import PendingRiders from "../pages/Dashboard/PendingRiders/PendingRiders";
+import ActiveRiders from "../pages/Dashboard/ActiveRiders/ActiveRiders.";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +36,15 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SendParcel />
+          </PrivateRoute>
+        ),
+        loader: () => fetch("./data/warehouses.json"),
+      },
+      {
+        path: "be-rider",
+        element: (
+          <PrivateRoute>
+            <BeARider />
           </PrivateRoute>
         ),
         loader: () => fetch("./data/warehouses.json"),
@@ -54,13 +70,62 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: (
       <PrivateRoute>
         <DashboardLayout />
       </PrivateRoute>
     ),
-    children: [],
+    children: [
+      {
+        path: "my-parcels",
+        element: (
+          <PrivateRoute>
+            <MyParcels />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment/:parcelId",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-history",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "track-parcel",
+        element: (
+          <PrivateRoute>
+            <TrackParcel />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "active-riders",
+        element: (
+          <PrivateRoute>
+            <ActiveRiders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "pending-riders",
+        element: (
+          <PrivateRoute>
+            <PendingRiders />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
 ]);
 

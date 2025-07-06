@@ -25,16 +25,22 @@ function Navbar() {
         <NavLink to="/about">About Us</NavLink>
       </li>
       {user && (
-        <li className="font-semibold text-[15px] text-black/60">
+        <>
           {" "}
-          <NavLink to="/send-parcel">Send Parcel</NavLink>
-        </li>
+          <li className="font-semibold text-[15px] text-black/60">
+            {" "}
+            <NavLink to="/send-parcel">Send Parcel</NavLink>
+          </li>
+          <li className="font-semibold text-[15px] text-black/60">
+            {" "}
+            <NavLink to="/be-rider">Be a Rider</NavLink>
+          </li>
+          <li className="font-semibold text-[15px] text-black/60">
+            {" "}
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+        </>
       )}
-
-      <li className="font-semibold text-[15px] text-black/60">
-        {" "}
-        <NavLink to="/be-rider">Be a Rider</NavLink>
-      </li>
     </>
   );
 
@@ -107,9 +113,15 @@ function Navbar() {
         </div>
         <div className="navbar-end">
           {user ? (
-            <button onClick={handleLogout} className="btn bg-primaryColor">
-              Sign Out
-            </button>
+            <div className="flex items-center gap-2">
+              <img
+                src={user.photoURL}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+              <button onClick={handleLogout} className="btn bg-primaryColor">
+                Sign Out
+              </button>
+            </div>
           ) : (
             <div className="space-x-2">
               <NavLink to="/login" className="btn border-primaryColor">

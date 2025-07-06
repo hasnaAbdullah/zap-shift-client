@@ -2,28 +2,77 @@ import { useForm } from "react-hook-form";
 import { Link, NavLink, useNavigate } from "react-router";
 import GoogleIcon from "../../shared/icons/GoogleIcon";
 import useAuth from "../../../hooks/useAuth";
+import { useRef, useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { MdPhotoCamera } from "react-icons/md";
+import axios from "axios";
+import useAxios from "../../../hooks/useAxios";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 function Account() {
-  const { setUser, createUser } = useAuth();
+  const { setUser, createUser, updateUserProfile, setLoading } = useAuth();
   const navigate = useNavigate();
+  // upload image functionality
+  const fileInputRef = useRef();
+  const [preview, setPreview] = useState(null);
+  const axiosInstance = useAxios();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     // console.log(errors);
     createUser(data?.email, data?.password)
-      .then((res) => {
-        console.log(res.user);
-        setUser(res.user);
+      .then(async (res) => {
+        // take entry for new user in database
+        const userInfo = {
+          name: data?.name,
+          email: data?.email,
+          photo: preview,
+          role: "user", // be default role will be user
+          createdAt: new Date().toISOString(),
+          last_log_in: new Date(
+            Number(res.user.metadata.lastLoginAt)
+          ).toISOString(),
+        };
+        // console.log(userInfo);
+        // console.log(res);
+        const usersRes = await axiosInstance.post("/users", userInfo);
+        console.log(usersRes);
+
+        updateUserProfile(data?.name, preview).then(() => {
+          setUser({ ...res.user, displayName: data?.name, photoURL: preview });
+          setLoading(false);
+        });
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleChange = async (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      setPreview(URL.createObjectURL(image));
+      const formData = new FormData();
+      formData.append("image", image);
+      const uploadImageUrl = `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_image_upload_key
+      }`;
+
+      const axiosRes = await axios.post(uploadImageUrl, formData);
+      console.log(axiosRes.data.data.url);
+    }
+  };
+  // upload image functionality end here
   return (
     <div>
       <form
@@ -34,6 +83,45 @@ function Account() {
           Create an Account
         </h1>
         <p className="mb-12 font-medium ">Register With Profast</p>
+        <fieldset className="fieldset">
+          <div className="relative w-15 h-15">
+            {/* Rounded image or icon */}
+            <div
+              onClick={handleClick}
+              className="w-full h-full rounded-full cursor-pointer overflow-hidden border-2 border-gray-300 shadow-sm"
+            >
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Profile Preview"
+                  className="w-full h-full object-scale-down"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                  <FaUserCircle className="text-7xl text-gray-400" />
+                </div>
+              )}
+            </div>
+
+            {/* Upload icon in bottom-right */}
+            <div
+              onClick={handleClick}
+              className="absolute bottom-1 right-1 bg-blue-600 hover:bg-blue-700 p-1 rounded-full text-white cursor-pointer shadow"
+            >
+              <MdPhotoCamera size={16} />
+            </div>
+
+            {/* Hidden file input */}
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              className="hidden"
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </fieldset>
         <fieldset className="fieldset">
           <label className="font-medium text-base">Name</label>
           <input
@@ -78,12 +166,7 @@ function Account() {
           </fieldset>
 
           <div className="text-center py-4 text-gray-500 font-bold">OR</div>
-          <div>
-            <button className="btn border-none bg-gray-300/50 w-full  text-black border-[#e5e5e5]">
-              <GoogleIcon />
-              Login with Google
-            </button>
-          </div>
+          <SocialLogin />
         </div>
       </form>
     </div>

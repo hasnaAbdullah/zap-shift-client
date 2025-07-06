@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
-import GoogleIcon from "../../shared/icons/GoogleIcon";
+
 import useAuth from "../../../hooks/useAuth";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 function Login() {
   const { setUser, loginUser } = useAuth();
@@ -25,6 +26,7 @@ function Login() {
         console.log(err);
       });
   };
+
   return (
     <div>
       <form
@@ -91,12 +93,7 @@ function Login() {
           </fieldset>
 
           <div className="text-center py-4 text-gray-500 font-bold">OR</div>
-          <div>
-            <button className="btn border-none bg-gray-300/50 w-full  text-black border-[#e5e5e5]">
-              <GoogleIcon />
-              Login with Google
-            </button>
-          </div>
+          <SocialLogin />
         </div>
       </form>
     </div>
